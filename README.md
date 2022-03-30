@@ -61,7 +61,7 @@ Example response
 }
 ~~~
 
-####Register
+#### Register
 
 POST to __/auth/register__
 
@@ -90,7 +90,7 @@ Example response
 }
 ~~~
 
-####Logout
+#### Logout
 
 POST to __/auth/logout__
 
@@ -107,7 +107,7 @@ Example response
 
 In every item method is necesesary to pass the "auth_token" obteined on login throw Bearer Token
 
-###GET to __/items__ to list all the items
+### GET to __/items__ to list all the items
 
 Example response
 ~~~json
@@ -140,7 +140,7 @@ Example response
 }
 ~~~
 
-###POST to __/items__ to create a new item
+### POST to __/items__ to create a new item
 
 Body params:
 ~~~json
@@ -173,7 +173,7 @@ Example response
 }
 ~~~
 
-###PUT to __/items/{itemId}__ to update a new item
+### PUT to __/items/{itemId}__ to update a new item
 ~~~json
 {
     "name": "Burger", //string
@@ -206,7 +206,7 @@ Example response
 }
 ~~~
 
-###DELETE to __items/{itemId}__
+### DELETE to __items/{itemId}__
 Status code: 204 No content
 
 
