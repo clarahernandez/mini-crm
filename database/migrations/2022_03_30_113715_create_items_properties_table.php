@@ -16,11 +16,13 @@ class CreateItemsPropertiesTable extends Migration
     public function up()
     {
         Schema::create('items_properties', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(Item::class);
-            $table->foreignIdFor(Property::class);
+            //$table->bigInteger('property_id');
+            //$table->bigInteger('item_id');
+
+            $table->foreignId('property_id')->references('id')->on('properties');
+            $table->foreignId('item_id')->references('id')->on('items');
+
             $table->unique(['property_id', 'item_id']);
-            $table->timestamps();
         });
     }
 
