@@ -1,64 +1,213 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Mini CRM - API
+This is a [RESTful API](https://en.wikipedia.org/wiki/Representational_state_transfer)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project was made with: [Laravel](https://laravel.com/)
 
-## About Laravel
+For api authentication: [Sanctum](https://laravel.com/docs/8.x/sanctum)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Installation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Clone the repository
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Configure database on .env file
 
-## Learning Laravel
+Run migrations with:
+~~~bash
+php artisan migrate
+~~~
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Run seeder with:
+~~~bash
+php artisan db:seed --class=PropertySeeder
+~~~
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Run the project with:
+~~~bash
+php artisan serve
+~~~
 
-## Laravel Sponsors
+## Project structure
+The project structure is the Laravel default structure
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## API Documentation
+Base Uri: http://localhost:8000/api
 
-### Premium Partners
+### Auth
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+#### Login
+ 
+POST to __/auth/logout__
 
-## Contributing
+Body params:
+~~~json
+{
+    "email": "string",
+    "password": "string"
+}
+~~~
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Example response
+~~~json
+{
+    "user": {
+        "id": 2,
+        "name": "Clara",
+        "email": "clara@gmail.com",
+        "email_verified_at": null,
+        "created_at": "2022-03-30T15:50:34.000000Z",
+        "updated_at": "2022-03-30T15:50:34.000000Z"
+    },
+    "auth_token": "4|AXW4rRx123OQWQxXdiEbWXJDPJpmRuaucHjSvtS3Awf"
+}
+~~~
 
-## Code of Conduct
+####Register
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+POST to __/auth/register__
 
-## Security Vulnerabilities
+Body params:
+~~~json
+{
+    "name": "string",
+    "email": "string",
+    "password": "string",
+    "password_confirmation": "string"
+    
+}
+~~~
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Example response
+~~~json
+{
+    "user": {
+        "name": "Clara",
+        "email": "clara12@gmail.com",
+        "updated_at": "2022-03-30T16:54:20.000000Z",
+        "created_at": "2022-03-30T16:54:20.000000Z",
+        "id": 4
+    },
+    "auth_token": "6|wAQoinfasdamK9PsXeJeCZT0fu0vb02utVz0M6vrcYl"
+}
+~~~
 
-## License
+####Logout
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+POST to __/auth/logout__
+
+Pass the "auth_token" obteined on login throw Bearer Token
+
+Example response
+~~~json
+{
+    "message": "Logged out successfully!"
+}
+~~~
+
+## Items
+
+In every item method is necesesary to pass the "auth_token" obteined on login throw Bearer Token
+
+###GET to __/items__ to list all the items
+
+Example response
+~~~json
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Pizza Española",
+      "created_at": "2022-03-30T13:40:06.000000Z",
+      "updated_at": "2022-03-30T13:40:06.000000Z",
+      "properties": [
+          {
+              "id": 2,
+              "name": "vegetarian"
+          },
+          {
+              "id": 3,
+              "name": "sweet"
+          }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Burger",
+      "created_at": "2022-03-30T13:40:17.000000Z",
+      "updated_at": "2022-03-30T13:40:17.000000Z",
+      "properties": []
+    }
+  ]
+}
+~~~
+
+###POST to __/items__ to create a new item
+
+Body params:
+~~~json
+{
+    "name": "Burger", //string
+    "properties": [1,2] //array of properties ids, could be an empty array
+}
+~~~
+
+Example response
+
+~~~json
+{
+    "data": {
+        "id": 53,
+        "name": "Burger",
+        "created_at": "2022-03-30T21:42:39.000000Z",
+        "updated_at": "2022-03-30T21:42:39.000000Z",
+        "properties": [
+            {
+                "id": 1,
+                "name": "vegan"
+            },
+            {
+                "id": 2,
+                "name": "vegetarian"
+            }
+        ]
+    }
+}
+~~~
+
+###PUT to __/items/{itemId}__ to update a new item
+~~~json
+{
+    "name": "Burger", //string
+    "properties": [1,3] //array of properties ids, could be an empty array
+}
+~~~
+
+The properties must be send everytime. If you don't send any property
+nothings going to be save in the items_properties (the intermediate table between items and properties).
+
+Example response
+~~~json
+{
+    "data": {
+        "id": 53,
+        "name": "Burger",
+        "created_at": "2022-03-30T21:42:39.000000Z",
+        "updated_at": "2022-03-30T21:42:39.000000Z",
+        "properties": [
+            {
+                "id": 1,
+                "name": "vegan"
+            },
+            {
+                "id": 3,
+                "name": "sweet"
+            }
+        ]
+    }
+}
+~~~
+
+###DELETE to __items/{itemId}__
+Status code: 204 No content
+
+
+
