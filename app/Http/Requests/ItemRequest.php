@@ -26,7 +26,7 @@ class ItemRequest extends FormRequest
         return [
             'name' => 'required|string',
             'properties' => 'array|nullable',
-            //'properties.*' => 'integer|exists:properties,id'
+            'properties.*' => 'integer|exists:properties,id'
         ];
     }
 }

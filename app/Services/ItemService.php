@@ -27,6 +27,7 @@ class ItemService
         $item->update([
             'name' => $name
         ]);
+
         $item->properties()->sync($properties);
 
         $item->save();
@@ -39,5 +40,16 @@ class ItemService
     public function getAll()
     {
         return Item::all();
+    }
+
+    public function destroy($id): void
+    {
+        $destroyed = Item::destroy($id);
+
+        if (!$destroyed) {
+            throw new \Exception("Item doesn't exist");
+        }
+
+        Item::destroy($id);
     }
 }
