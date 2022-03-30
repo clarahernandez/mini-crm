@@ -206,7 +206,7 @@ Example response
 }
 ~~~
 
-### DELETE to __items/{itemId}__
+### DELETE to __/items/{itemId}__
 Status code: 204 No content
 
 
