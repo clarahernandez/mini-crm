@@ -43,7 +43,9 @@ php artisan test
 ## Project structure
 The project structure is the Laravel default structure
 
-The code is located in the app folder
+The routes are located in /routes/api.php
+
+The Controllers, Services, Helpers are located in /app folder.
 
 ## API Documentation
 Base Uri: http://localhost:8000/api
