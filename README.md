@@ -29,6 +29,8 @@ php artisan serve
 ~~~
 
 ## Testing
+Using PhpUnit
+
 Tests are located in the tests folder in the root of the project.
 
 The database in testing is sqlite, the configuration file is .env.testing.
