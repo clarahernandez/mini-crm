@@ -52,7 +52,7 @@ class ItemTest extends TestCase
             ]);
 
         $response
-            ->assertStatus(201)
+            ->assertCreated()
             ->assertJsonStructure([
                 'data' => [
                     'id',
