@@ -29,7 +29,7 @@ class AuthService
         auth()->user()->tokens()->delete();
     }
 
-    public function createToken(USer $user)
+    public function createToken(User $user)
     {
         return $user->createToken('auth_token')->plainTextToken;
     }

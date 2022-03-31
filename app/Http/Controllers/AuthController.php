@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $email)->first();
 
-        if (!AuthHelper::validateEmailLogin($user, $password)) {
+        if (!$user || !AuthHelper::validatePassword($user, $password)) {
             return response([
                 'message' => 'Check out your email or password!'
             ], 401);

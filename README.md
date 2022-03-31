@@ -5,6 +5,8 @@ This project was made with: [Laravel](https://laravel.com/)
 
 For api authentication: [Sanctum](https://laravel.com/docs/8.x/sanctum)
 
+Database: MySql
+
 ## Installation
 
 Clone the repository
@@ -26,8 +28,20 @@ Run the project with:
 php artisan serve
 ~~~
 
+## Testing
+Tests are located in the tests folder in the root of the project.
+
+The database in testing is sqlite, the configuration file is .env.testing.
+
+Run:
+~~~bash
+php artisan test
+~~~
+
 ## Project structure
 The project structure is the Laravel default structure
+
+The code is located in the app folder
 
 ## API Documentation
 Base Uri: http://localhost:8000/api
