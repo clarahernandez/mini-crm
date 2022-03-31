@@ -16,8 +16,7 @@ class CreateItemsPropertiesTable extends Migration
     public function up()
     {
         Schema::create('items_properties', function (Blueprint $table) {
-            //$table->bigInteger('property_id');
-            //$table->bigInteger('item_id');
+            $table->id();
 
             $table->foreignId('property_id')->references('id')->on('properties');
             $table->foreignId('item_id')->references('id')->on('items');

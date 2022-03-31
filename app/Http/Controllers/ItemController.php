@@ -83,7 +83,7 @@ class ItemController extends Controller
      * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $this->service->destroy($id);
         return response()->json([], 204);

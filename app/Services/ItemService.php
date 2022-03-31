@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Item;
+use App\Models\ItemProperty;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -11,17 +12,19 @@ class ItemService
 {
     /**
      * @param string $name
-     * @param array $properties
+     * @param array|null $properties
      * @return Item
      */
-    public function create(string $name, array $properties)
+    public function create(string $name, ?array $properties)
     {
         DB::beginTransaction();
 
         $item = new Item(['name' => $name]);
 
         $item->save();
-        $item->properties()->sync($properties);
+        if (!is_null($properties)) {
+            $item->properties()->sync($properties);
+        }
 
         DB::commit();
         return $item;
@@ -59,17 +62,22 @@ class ItemService
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @throws Exception
      */
-    public function destroy($id): void
+    public function destroy(int $id): void
     {
+        DB::beginTransaction();
+
+
+        ItemProperty::deleteAllByItemId($id);
+
         $destroyed = Item::destroy($id);
 
         if (!$destroyed) {
             throw new Exception("Item doesn't exist");
         }
-
+        DB::commit();
         Item::destroy($id);
     }
 }

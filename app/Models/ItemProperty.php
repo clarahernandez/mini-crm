@@ -12,4 +12,9 @@ class ItemProperty extends Model
     ];
 
     protected $table = 'items_properties';
+
+    static public function deleteAllByItemId($id)
+    {
+        self::where('item_id', '=',  $id)->delete();
+    }
 }
