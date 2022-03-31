@@ -26,8 +26,18 @@ Run the project with:
 php artisan serve
 ~~~
 
+## Testing
+Tests are located in the tests folder in the root of the project.
+
+Run:
+~~~bash
+php artisan test
+~~~
+
 ## Project structure
 The project structure is the Laravel default structure
+
+The code is located in the app folder
 
 ## API Documentation
 Base Uri: http://localhost:8000/api

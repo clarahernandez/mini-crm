@@ -7,12 +7,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthHelper
 {
-    static public function validateEmailLogin($user, $password): bool
+    static public function validatePassword($user, $password): bool
     {
-        //Check email
-        $user = User::where('email', $user->email)->first();
-
-        if (!$user || !Hash::check($password, $user->password)) {
+        if (!Hash::check($password, $user->password)) {
             return false;
         }
 
