@@ -128,22 +128,6 @@ class ItemTest extends TestCase
         $response->assertStatus(204);
     }
 
-    /**
-     * Delete one item doesn't exist must throw error 500.
-     */
-    public function test_delete_one_item_doesnt_exist()
-    {
-        $token = AuthHelper::createToken();
-
-        $response = $this->withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => "Bearer $token"
-        ])
-            ->delete('/api/items/' .  1);
-
-        $response->assertStatus(500);
-    }
-
     public function test_update_properties_of_item()
     {
         $this->seed(PropertySeeder::class);
