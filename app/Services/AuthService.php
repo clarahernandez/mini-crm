@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
+    /**
+     * @param string $name
+     * @param string $email
+     * @param string $hashedPassword
+     * @return array
+     */
     public function register(string $name, string $email, string $hashedPassword)
     {
         $user = new User([
@@ -24,11 +30,18 @@ class AuthService
         ];
     }
 
+    /**
+     * @return void
+     */
     public function deleteTokens(): void
     {
         auth()->user()->tokens()->delete();
     }
 
+    /**
+     * @param User $user
+     * @return string
+     */
     public function createToken(User $user)
     {
         return $user->createToken('auth_token')->plainTextToken;

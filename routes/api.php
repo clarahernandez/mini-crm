@@ -16,18 +16,20 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-//Public routes
+//PUBLIC ROUTES
+
+//Auth routes
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-//Protected routes
+//-----------------------------------------------------------------------
+
+//PROTECTED ROUTES
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
-
     Route::resources([
         'items' => ItemController::class,
-        //'properties' => PropertyController::class,
     ]);
 });
 

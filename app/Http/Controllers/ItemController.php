@@ -6,21 +6,27 @@ use App\Http\Requests\ItemRequest;
 use App\Http\Resources\ItemResource;
 use App\Models\Item;
 use App\Services\ItemService;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 
 class ItemController extends Controller
 {
     protected ItemService $service;
 
+    /**
+     * @param ItemService $service
+     */
     public function __construct(ItemService $service)
     {
         $this->service = $service;
     }
 
+    /**
+     * Display one item resource.
+     *
+     * @param Item $item
+     * @return ItemResource
+     */
     public function show(Item $item)
     {
         return new ItemResource($item);
@@ -39,7 +45,7 @@ class ItemController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Create a new resource.
      *
      * @return ItemResource
      */
@@ -54,7 +60,7 @@ class ItemController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource.
      *
      * @param ItemRequest $request
      * @param Item $item
@@ -71,7 +77,7 @@ class ItemController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource.
      *
      * @param int $id
      * @return JsonResponse

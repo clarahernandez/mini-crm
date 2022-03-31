@@ -7,19 +7,29 @@ use App\Helpers\AuthHelper;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Services\AuthService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     protected AuthService $service;
 
+    /**
+     * @param AuthService $service
+     */
     public function __construct(AuthService $service)
     {
         $this->service = $service;
     }
 
+    /**
+     * @param RegisterRequest $request
+     * @return Application|ResponseFactory|Response
+     */
     public function register(RegisterRequest $request)
     {
         $response = $this->service->register(
@@ -31,6 +41,10 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
+    /**
+     * @param Request $request
+     * @return string[]
+     */
     public function logout(Request $request)
     {
         $this->service->deleteTokens();
@@ -40,6 +54,10 @@ class AuthController extends Controller
         ];
     }
 
+    /**
+     * @param LoginRequest $request
+     * @return Application|ResponseFactory|Response
+     */
     public function login(LoginRequest $request)
     {
         $email = $request['email'];
