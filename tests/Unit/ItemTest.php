@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Database\Seeders\PropertySeeder;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Tests\TestHelpers\AuthHelper;
@@ -51,7 +52,7 @@ class ItemTest extends TestCase
             ]);
 
         $response
-            ->assertStatus(201)
+            ->assertCreated()
             ->assertJsonStructure([
                 'data' => [
                     'id',
@@ -144,4 +145,32 @@ class ItemTest extends TestCase
     }
 
     //TODO: Adding properties to one item. Need to solve seeder problem.
+    public function test_update_properties_of_item()
+    {
+        $this->seed(PropertySeeder::class);
+
+        $token = AuthHelper::createToken();
+
+        $item = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer $token"
+        ])
+            ->postJson('/api/items', [
+                'name' => 'Pizza',
+                'properties' => [0 => 1, 1 => 2]
+            ])
+            ->getOriginalContent();
+
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => "Bearer $token"
+        ])->put('/api/items/' . $item->id, [
+            'name' => 'Burger',
+            'properties' => [3]
+        ]);
+
+        $response
+            ->assertOk()
+            ->assertJsonPath('data.properties', [0 => ['id' => 3, 'name' => 'sweet']]);
+    }
 }
