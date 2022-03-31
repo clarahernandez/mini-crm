@@ -121,6 +121,44 @@ Example response
 }
 ~~~
 
+## Properties
+
+### GET to __/properties__ to list all the properties
+
+Example response
+
+~~~json
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "vegan"
+        },
+        {
+            "id": 2,
+            "name": "vegetarian"
+        },
+        {
+            "id": 3,
+            "name": "sweet"
+        },
+        {
+            "id": 4,
+            "name": "spicy"
+        },
+        {
+            "id": 5,
+            "name": "gluten free"
+        },
+        {
+            "id": 6,
+            "name": "no salty"
+        }
+    ]
+}
+~~~
+
+
 ## Items
 
 In every item method is necesesary to pass the "auth_token" obteined on login throw Bearer Token
@@ -202,6 +240,8 @@ Example response
 The properties must be send everytime. If you don't send any property
 nothings going to be save in the items_properties (the intermediate table between items and properties).
 
+To update a property you just must change the array of properties
+
 Example response
 ~~~json
 {
@@ -226,6 +266,8 @@ Example response
 
 ### DELETE to __/items/{itemId}__
 Status code: 204 No content
+
+
 
 
 
